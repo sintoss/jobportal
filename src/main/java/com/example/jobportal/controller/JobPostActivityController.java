@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/dashboard")
 public class JobPostActivityController {
 
 
@@ -39,7 +38,7 @@ public class JobPostActivityController {
     }
 
 
-    @GetMapping("/")
+    @GetMapping("/dashboard/")
     public String searchJobs(Model model,
                              @RequestParam(value = "job", required = false) String job,
                              @RequestParam(value = "location", required = false) String location,
@@ -155,7 +154,7 @@ public class JobPostActivityController {
         return "dashboard";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/dashboard/edit/{id}")
     public String editJobPost(@PathVariable long id, Model model) {
 
 
@@ -167,14 +166,14 @@ public class JobPostActivityController {
     }
 
 
-    @GetMapping("/add")
+    @GetMapping("/dashboard/add")
     public String addJobs(Model model) {
         model.addAttribute("jobPostActivity", new JobPostActivity());
         model.addAttribute("user", usersService.getCurrentUserProfile());
         return "add-jobs";
     }
 
-    @PostMapping("/addNew")
+    @PostMapping("/dashboard/addNew")
     public String addNew(JobPostActivity jobPostActivity, Model model) {
 
         Users user = usersService.getCurrentUser();
@@ -189,7 +188,7 @@ public class JobPostActivityController {
         return "redirect:/dashboard/";
     }
 
-    @PostMapping("/deleteJob/{id}")
+    @PostMapping("/dashboard/deleteJob/{id}")
     public String deleteJob(@PathVariable long id, Model model) {
 
         JobPostActivity jobPostActivity = jobPostActivityService.getOne(id);
@@ -198,7 +197,7 @@ public class JobPostActivityController {
         return "redirect:/dashboard/";
     }
 
-    @GetMapping("global-search/")
+    @GetMapping("/global-search/")
     public String globalSearch(Model model,
                                @RequestParam(value = "job", required = false) String job,
                                @RequestParam(value = "location", required = false) String location,
